@@ -5,6 +5,21 @@
         "hint": "Napcat 对打包消息的实现有 BUG，不建议使用",
         "default": false
     },
+    "message_setting":{
+        "description": "消息设置",
+        "items": {
+            "first_send":{
+                "description": "开场语",
+                "type": "string",
+                "default": "流媒体解析bot为您服务 ٩( 'ω' )و"
+            },
+            "send_introduction":{
+                "description": "是否发送解析简介",
+                "type": "bool",
+                "default": true
+            }
+        }
+    },
     "trigger_settings": {
         "description": "触发设置",
         "type": "object",

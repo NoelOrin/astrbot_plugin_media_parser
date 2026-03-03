@@ -62,6 +62,10 @@ class ConfigManager:
             )
         self.large_video_threshold_mb = large_video_threshold_mb
         
+        message_setting = self._config.get("message_setting", {})
+        self.send_introduction = message_setting.get("send_introduction", False)
+        self.first_send = message_setting.get("first_send", "")
+        
         download_settings = self._config.get("download_settings", {})
         self.cache_dir = download_settings.get(
             "cache_dir",

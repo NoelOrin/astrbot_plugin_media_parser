@@ -50,6 +50,9 @@ class VideoParserPlugin(Star):
         self.trigger_keywords = self.config_manager.trigger_keywords
         self.max_video_size_mb = self.config_manager.max_video_size_mb
         self.large_video_threshold_mb = self.config_manager.large_video_threshold_mb
+        self.first_send = self.config_manager.first_send
+        self.send_introduction = self.config_manager.send_introduction
+
         self.debug_mode = self.config_manager.debug_mode
         self.whitelist = {
             "enable": self.config_manager.whitelist_enable,
@@ -193,7 +196,8 @@ class VideoParserPlugin(Star):
                     self.logger.debug("解析后未获得任何有效元数据（可能是直播链接或解析失败）")
                 return
             
-            await event.send(event.plain_result("流媒体解析bot为您服务 ٩( 'ω' )و"))
+            if self.first_send:
+                await event.send(event.plain_result(self.first_send))
             
             if self.debug_mode:
                 self.logger.debug(f"解析获得 {len(metadata_list)} 条元数据")
@@ -262,7 +266,9 @@ class VideoParserPlugin(Star):
                     processed_metadata_list,
                     self.is_auto_pack,
                     self.large_video_threshold_mb,
-                    self.max_video_size_mb
+                    self.max_video_size_mb,
+                    self.first_send,
+                    self.send_introduction
                 )
                 
                 if self.debug_mode:
