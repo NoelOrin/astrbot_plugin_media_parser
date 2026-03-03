@@ -11,10 +11,8 @@ class MessageManager:
 
         Args:
             logger: 日志记录器（可选）
-        """
         self.logger = logger
         self.sender = MessageSender(logger=logger)
-
     def get_sender_info(self, event) -> tuple:
         """获取发送者信息
 
@@ -31,15 +29,19 @@ class MessageManager:
         metadata_list: List[Dict[str, Any]],
         is_auto_pack: bool,
         large_video_threshold_mb: float = 0.0,
-        max_video_size_mb: float = 0.0
+        max_video_size_mb: float = 0.0,
+        first_send: str = None,
+        send_introduction: bool = False
     ) -> Tuple[List[List], List[Dict], List[str], List[str]]:
-        """构建所有链接的节点
+        """构建消息节点
 
         Args:
             metadata_list: 元数据列表
             is_auto_pack: 是否打包为Node
             large_video_threshold_mb: 大视频阈值(MB)
-            max_video_size_mb: 最大允许的视频大小(MB)，用于显示错误信息
+            max_video_size_mb: 最大允许的视频大小(MB), 用于显示错误信息
+            first_send: 首次发送的消息
+            send_introduction: 是否发送简介
 
         Returns:
             包含(all_link_nodes, link_metadata, temp_files, video_files)的元组
